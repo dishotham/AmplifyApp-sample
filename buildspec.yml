@@ -14,5 +14,5 @@ phases:
       - aws s3 cp build.zip s3://amplifybuild/build/dev/
   post_build:
     commands:
-      - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name dish --source-url s3://amplifybuild/build/dev/
+      - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name dish --source-url s3://amplifybuild/build/dev/build.zip
       
