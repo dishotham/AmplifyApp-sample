@@ -11,8 +11,8 @@ phases:
     commands:
       - npm run build
       - cd build && zip -r ./build.zip .
-      - aws s3 cp build.zip s3://amplify-ampfinal-develop-74022-deployment/build/
+      - aws s3 cp build.zip s3://amplifybuild/build/dev/
   post_build:
     commands:
-      - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name dish --source-url s3://amplify-ampfinal-develop-74022-deployment/build/
+      - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name dish --source-url s3://amplifybuild/build/dev/
       
