@@ -16,6 +16,7 @@ phases:
     commands:
       - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name dish --source-url s3://amplifybuild/build/dev/build.zip
    #   - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name prod --source-url s3://amplifybuild/build/dev/build-artifact.zip
+   
       
       
       
