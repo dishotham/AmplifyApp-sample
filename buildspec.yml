@@ -11,10 +11,10 @@ phases:
       - aws --version
   build:
     commands:
-   #   - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-   #   - echo $COMMIT
-   #   - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
-   #   - echo "Current tag is $TAG"
+      - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - echo $COMMIT
+      - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
+      - echo "Current tag is $TAG"
       - npm run build
       - cd build && zip -r ./build-$TAG.zip .
       - aws s3 cp build-$TAG.zip s3://cbo-prod-bucket-1/UI-Build-files/
