@@ -1,0 +1,9 @@
+version: 0.2
+phases:
+  build:
+    commands:
+       -COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+       - echo $COMMIT
+       - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
+       - echo "Current tag is $TAG"
+       - aws amplify start-deployment --app-id d3v4ja4ck1aigd --branch-name prod --source-url s3://cbo-prod-bucket-1/UI-Build-files/build-$TAG.zip
