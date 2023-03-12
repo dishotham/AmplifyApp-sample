@@ -1,4 +1,8 @@
 version: 0.2
+env:
+  variables:
+    ROLE_SESSION_NAME: CodePipelineCrossAccountRole
+    ASSUME_ROLE_ARN: arn:aws:iam::218953109808:role/CodePipelineCrossAccountRole
 phases:
   build:
     commands:
@@ -6,4 +10,10 @@ phases:
       - echo $COMMIT
       - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
       - echo "Current tag is $TAG"
+      - echo $ASSUME_ROLE_ARN
+      - echo $ROLE_SESSION_NAME
+      - TEMP_ROLE=`aws sts assume-role --role-arn $ASSUME_ROLE_ARN --role-session-name $ROLE_SESSION_NAME`
+      - export AWS_ACCESS_KEY_ID=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.AccessKeyId')
+      - export AWS_SECRET_ACCESS_KEY=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SecretAccessKey')
+      - export AWS_SESSION_TOKEN=$(echo "${TEMP_ROLE}" | jq -r '.Credentials.SessionToken')
       - aws amplify start-deployment --app-id d2sb60fozfzirc --branch-name prod --source-url s3://cbo-prod-bucket-1/UI-Build-files/build-$TAG.zip
