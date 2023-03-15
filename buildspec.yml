@@ -13,7 +13,7 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
-      - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
+      - TAG=$(git describe --tags --exact-match --abbrev=7 --first-parent $COMMIT)
       - echo "Current tag is $TAG"
       - npm run build
       - cd build && zip -r ./build-$TAG.zip .
