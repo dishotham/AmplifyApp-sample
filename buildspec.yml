@@ -22,10 +22,10 @@ phases:
       - cd build && zip -r ./build-$TAG.zip .
       - |
         if [ "$QA_Deploy" = "true" ]; then
-        aws amplify start-deployment --app-id dlkkiwthevzqo --branch-name dev109 --source-url s3://onecbo-build-artifacts/UI-Build-files/build-$TAG.zip;
-      else
-        echo "QA_Deploy is not set to true, skipping deployment";
-      fi
+          aws amplify start-deployment --app-id dlkkiwthevzqo --branch-name dev109 --source-url s3://onecbo-build-artifacts/UI-Build-files/build-$TAG.zip;
+        else
+          echo "QA_Deploy is not set to true, skipping deployment";
+        fi
       - echo "Copying build artifacts to S3 bucket"
       - aws s3 cp build-$TAG.zip s3://cbo-prod-bucket-1/UI-Build-files/
    
