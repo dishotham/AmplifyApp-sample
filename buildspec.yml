@@ -22,6 +22,7 @@ phases:
       - cd build && zip -r ./build-$TAG.zip .
       - |
         if [ "$QA_Deploy" = "true" ]; then
+          echo "Starting QA Deployment"
           aws amplify start-deployment --app-id dlkkiwthevzqo --branch-name dev109 --source-url s3://onecbo-build-artifacts/UI-Build-files/build-$TAG.zip;
         else
           echo "QA_Deploy is not set to true, skipping deployment";
