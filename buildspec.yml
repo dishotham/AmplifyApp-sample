@@ -8,7 +8,15 @@ phases:
   pre_build:
     commands:
       - npm install
-      - aws --version
+      - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - echo $COMMIT
+      - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
+      - if [ -z "$TAG" ]; then
+          echo "Error: No tag found for commit $COMMIT";
+          exit 1;
+        else
+          echo "Current tag is $TAG";
+        fi
   build:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
