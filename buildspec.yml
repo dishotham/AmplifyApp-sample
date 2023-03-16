@@ -7,7 +7,6 @@ phases:
       nodejs: 12
   pre_build:
     commands:
-      - npm install
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
       - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
@@ -17,6 +16,7 @@ phases:
         else
           echo "Current tag is $TAG";
         fi
+      - npm install
   build:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
