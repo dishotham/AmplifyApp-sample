@@ -9,8 +9,14 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
-      - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
-      - echo "Current tag is $TAG"
+      - git config --list
+      - git config --global credential.helper "store --file ~/.git-credentials"
+      - echo -e "protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}" > ~/.git-credentials
+      - chmod 0600 ~/.git-credentials
+      - scripts/codebuild-git-wrapper.sh https://github.com/dishotham/AmplifyApp-sample.git main
+      - git log | head -100
+     # - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
+     # - echo "Current tag is $TAG"
       - npm install
   build:
     commands:
