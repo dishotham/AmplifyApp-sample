@@ -9,10 +9,8 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
-      - echo $CODEBUILD_SOURCE_REPO_URL
-      - echo $CODEBUILD_SOURCE_BRANCH
-      - echo #{SourceVariables.BranchName}
-      - Branch= #{SourceVariables.BranchName}
+      - echo $REPO_URL
+      - echo $BRANCH
       - git config --list
    #   - git clone https://github.com/dishotham/AmplifyApp-sample.git
    #   - git config --global credential.helper "store --file ~/.git-credentials"
