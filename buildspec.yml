@@ -1,6 +1,6 @@
 version: 0.2
-env:
-  git-credential-helper: yes
+#env:
+#  git-credential-helper: yes
 phases:
   install:
     runtime-versions:
@@ -9,26 +9,22 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
-      - echo $REPO_URL
-      - echo $BRANCH
-      - git config --list
+      - echo $BranchName
+      - echo $FullRepositoryName
+   #   - git config --list
    #   - git clone https://github.com/dishotham/AmplifyApp-sample.git
    #   - git config --global credential.helper "store --file ~/.git-credentials"
-      - echo -e "protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}" > ~/.git-credentials
+   #   - echo -e "protocol=https\nhost=github.com\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}" > ~/.git-credentials
    #   - chmod 0600 ~/.git-credentials
-      - bash codebuild-git-wrapper.sh https://github.com/dishotham/AmplifyApp-sample.git main
-      - git log | head -100
+      - bash codebuild-git-wrapper.sh https://github.com/dishotham/$RepositoryName.git $BranchName
+      - git log | head -2
      # - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
      # - echo "Current tag is $TAG"
       - npm install
   build:
     commands:
-      - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - echo $COMMIT
-      - Branch=$(#{SourceVariables.BranchName})
-      - echo #{SourceVariables.BranchName}
-      - echo $Branch
-      - echo $CODEBUILD_SOURCE_BRANCH
+  #    - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+  #    - echo $COMMIT   
       - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
       - echo "Current tag is $TAG"
       - npm run build
