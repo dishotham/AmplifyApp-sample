@@ -8,7 +8,6 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
-      - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
       - echo "Current tag is $TAG"
       - echo $ASSUME_ROLE_ARN
       - echo $ROLE_SESSION_NAME
