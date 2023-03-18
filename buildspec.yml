@@ -9,6 +9,8 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
+      - echo $CODEBUILD_SOURCE_REPO_URL
+      - echo $$CODEBUILD_SOURCE_BRANCH
       - git config --list
    #   - git clone https://github.com/dishotham/AmplifyApp-sample.git
    #   - git config --global credential.helper "store --file ~/.git-credentials"
@@ -23,6 +25,8 @@ phases:
     commands:
       - COMMIT=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $COMMIT
+      - echo $CODEBUILD_SOURCE_REPO_URL
+      - echo $$CODEBUILD_SOURCE_BRANCH
       - TAG=$(git describe --tags --exact-match --abbrev=7 $COMMIT)
       - echo "Current tag is $TAG"
       - npm run build
