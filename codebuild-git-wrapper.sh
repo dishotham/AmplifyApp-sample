@@ -4,7 +4,7 @@ function usage {
   {
     echo "Usage:"
     echo "   ${BASH_SOURCE[0]} <REPO_URL> <BRANCH>"
-    echo "      REPO_URL - the URL for the CodeCommit repository"
+    echo "      REPO_URL - the URL for the GitHub repository"
     echo "      BRANCH - (optional) the branch to check out. Defaults to the default branch." 
   } >&2
 }
@@ -41,7 +41,7 @@ git clone --quiet "$REPO_URL" "$TEMP_FOLDER"
 
 # Wind the repository back to the specified branch and commit
 cd "$TEMP_FOLDER"
-git fetch --tags
+# git fetch --tags
 if [ ! -z "${BRANCH:-}" ]; then
   git checkout "$BRANCH"
 fi
